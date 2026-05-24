@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+# shellcheck source=./framework.sh
+source "${BASE_DIR}/framework.sh"
+
+ascii_art="
+           (:)_
+         ,'    \`.
+        :        :
+        |        |              ___
+        |       /|    ______   // _\\
+        ; -  _,' :  ,'      \`. \\   -\\
+       /          \\/          \ \\   :
+      (            :  ------.  \`-'  |
+   ____\\___    ____|______   \\______|_______
+           |::|           '--\`
+           |::|
+           |::|       HoHoHo
+           |::;
+           \`:/
+"
+
+print_columns "" "${ascii_art}"
+
