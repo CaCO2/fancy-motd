@@ -6,6 +6,22 @@ source "${BASE_DIR}/framework.sh"
 
 freeh=$(free -h)
 freem=$(free -m)
+meminfo=$(cat /proc/meminfo)
+
+if [[ -d /proc/spl/kstat/zfs ]]; then
+    # if zfs is in use on system
+    arcstat=$(cat /proc/spl/kstat/zfs/arcstats)
+
+    # convert units to kb for easy calculation with /proc/meminfo
+    arc_current=$(awk '/^size/ { OFMT="%.0f"; print $3/1024 }' <<< "${arcstat}")
+    arc_min=$(awk '/^c_min/ { OFMT="%.0f"; print $3/1024 }' <<< "${arcstat}")
+
+    # zfs arc size is dynamic, but can't shrink below the min size
+    arcsize=$(bc <<< "${arc_current}-${arc_min}")
+else
+    # if zfs isn't in use, set the arc to 0
+    arcsize=0
+fi
 
 ram() {
     local memory total used available label percentage bar
@@ -17,6 +33,7 @@ ram() {
     bar=$(print_bar2 "${WIDTH}" "${percentage}")
 
     printf "%s\n%s" "${label}" "${bar}"
+
 }
 
 swap() {
