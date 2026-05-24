@@ -14,7 +14,7 @@ ram() {
     label=$(print_split "${WIDTH}" "RAM - ${used::-1} used, ${available::-1} available" "/ ${total::-1}")
 
     percentage=$(awk '/Mem/ {printf "%.0f", ($2-$7)/$2*100}' <<< "${freem}")
-    bar=$(print_bar "${WIDTH}" "${percentage}")
+    bar=$(print_bar2 "${WIDTH}" "${percentage}")
 
     printf "%s\n%s" "${label}" "${bar}"
 }
@@ -30,7 +30,7 @@ swap() {
     label=$(print_split "${WIDTH}" "Swap - ${used::-1} used, ${available::-1} available" "/ ${total::-1}")
 
     percentage=$(awk '/Swap/ {printf "%.0f", $3/$2*100}' <<< "${freem}")
-    bar=$(print_bar "${WIDTH}" "${percentage}")
+    bar=$(print_bar2 "${WIDTH}" "${percentage}")
 
     printf "%s\n%s" "${label}" "${bar}"
 }
@@ -40,3 +40,4 @@ swap=$(swap)
 [[ -n "${swap}" ]] && out+="\n${swap}"
 
 print_columns "Memory" "${out}"
+
