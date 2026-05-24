@@ -52,6 +52,24 @@ print_bar() {
     echo "${out}"
 }
 
+# The 2nd kind -- Prints bar divided in two parts by given percentage
+# $1 - bar width
+# $2 - percentage
+print_bar2() {
+    local bar_width=$(($1 - 2))
+    local used_width=$(($2 * bar_width / 100))
+    local free_width=$((bar_width - used_width))
+    local out=""
+    out+="["
+    out+="${CE}"
+    out+=$(print_n "=" ${used_width})
+    out+="${CA}"
+    out+=$(print_n "=" ${free_width})
+    out+="${CN}"
+    out+="]"
+    echo "${out}"
+}
+
 # Prints text with color according to given value and two thresholds
 # $1 - text to print
 # $2 - current value
