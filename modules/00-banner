@@ -4,6 +4,23 @@ set -euo pipefail
 # shellcheck source=./framework.sh
 source "${BASE_DIR}/framework.sh"
 
-hostname=${HOSTNAME:-$(hostname)}
+ascii_art="
+           (:)_
+         ,'    \`.
+        :        :
+        |        |              ___
+        |       /|    ______   // _\\
+        ; -  _,' :  ,'      \`. \\   -\\
+       /          \\/          \ \\   :
+      (            :  ------.  \`-'  |
+   ____\\___    ____|______   \\______|_______
+           |::|           '--\`
+           |::|       
+           |::|       Pi ZERO
+           |::;       
+           \`:/
+"
 
-print_columns "" "${CA}$(figlet "${hostname}")${CN}"
+print_columns "" "${ascii_art}"
+
+
